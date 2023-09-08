@@ -7,10 +7,13 @@ from math import gcd, sqrt, floor
 def distgcd(numa: int, numb: int):
     m=numa-numb
     divisores = 0
-    for i in range(1,m):
+    for i in range(1,floor(sqrt(m))+1):
             if m % i == 0:
-                divisores += 1
-    return(divisores+1)
+                if m // i != i:
+                    divisores += 2
+                else:
+                    divisores += 1
+    return(divisores)
 
 ## Checar si todos los divisores de A-B son GCD.
 ## Esto en efecto es cierto pues gcd(A+X, B+X) = gcd(A-B, B+X)
