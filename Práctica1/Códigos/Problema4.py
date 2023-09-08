@@ -2,7 +2,7 @@
 Posible GCD
 
 '''
-from math import gcd, sqrt, floor
+from math import sqrt, floor
 
 def distgcd(numa: int, numb: int):
     m=numa-numb
