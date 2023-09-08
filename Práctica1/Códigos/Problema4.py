@@ -14,7 +14,6 @@ def distgcd(numa: int, numb: int):
                 else:
                     divisores += 1
     return(divisores)
-
 ## Checar si todos los divisores de A-B son GCD.
 ## Esto en efecto es cierto pues gcd(A+X, B+X) = gcd(A-B, B+X)
 ## De donde, si l|(A-B) entonces l|(B+X) para algún X entero.
