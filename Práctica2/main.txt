@@ -1,0 +1,5 @@
+Descripción general de la Práctica 2
+
+La práctica 2 consiste en la creación de un juego de totito (3 en línea) que funcione mediante la impresión en 
+terminal. La inclusión de una Interfaz Gráfica de Usario es opcional pero la misma implementación otorgará
+punteo adicional a la práctica.
