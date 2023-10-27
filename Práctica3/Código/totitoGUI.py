@@ -6,60 +6,6 @@ import random
 from totitoJugador import Jugador
 from totitoTablero import Tablero
 
-def advertencias(jugador1, jugador2, tablero):
-    cont=0
-    if jugador1.getAdvertencias()>2:
-        tablero.setGanador(jugador2)
-        cont +=1
-        return True
-    elif jugador2.getAdvertencias()>2:
-        tablero.setGanador(jugador1)
-        cont+=1
-        return True
-    if cont==0:
-        return False
-
-def ganador(jugador1, jugador2, tablero):
-    pos= tablero.getPosicionesGanadorasHor() + tablero.getPosicionesGanadorasVer() + tablero.getPosicionesGanadorasDia()
-    cont= 0
-    m1 = jugador1.getCaracter()
-    m2 = jugador2.getCaracter()
-    for i in pos:
-        if i == [m1, m1, m1]:
-            tablero.setGanador(jugador1)
-            cont +=1
-            return True
-        elif i == [m2, m2, m2]:
-            tablero.setGanador(jugador2)
-            cont +=1
-            return True
-    if cont == 0:
-        return False
-
-
-def juego1vCPU(jugador1, jugador2, tablero):
-    vict = False
-    tablero.imprimirTablero()
-    ## Esta sección del código tenía planeado implementar una estrategia ganadora pero no se completó.
-    for i in range(1,5):
-        tablero.jugada(jugador1, jugador2)
-        tablero.imprimirTablero()
-        vict = victoria(jugador1, jugador2, tablero)
-        if vict != False:
-            break
-        tablero.jugadaRandom(jugador2)
-        vict = victoria(jugador1, jugador2, tablero)
-        tablero.imprimirTablero()
-        if vict != False:
-            break
-    if vict == False:
-        tablero.jugada(jugador1, jugador2)
-        tablero.imprimirTablero()
-        vict = victoria(jugador1, jugador2, tablero)
-    imprimirGanador(tablero, vict)
-    
-
-
 #####################################################################################################################################################################################################################################################################33
 
 
@@ -74,8 +20,6 @@ class InterfazTotito():
         self.entrada2= None
         self.posicion2=None
         self.vict = False
-        self.juego = True
-        self.conteo=0
         self.ventanaInit.mainloop()
     
     def entradadatos(self):
@@ -93,12 +37,6 @@ class InterfazTotito():
         self.boton1=ttk.Button(self.titulo, text="Siguiente", command=self.validacionJuego)
         self.boton1.grid(column=0, row=3, columnspan=2, padx=5, pady=5, sticky="we")
         self.entry1.focus()
-    
-    def victoria(self, jugador1, jugador2, tablero):
-        if ganador(jugador1, jugador2, tablero) == True or advertencias(jugador1, jugador2, tablero) == True:
-            return True
-        else:
-            return False
     
     def deshabilitar(self, objeto):
         try:
