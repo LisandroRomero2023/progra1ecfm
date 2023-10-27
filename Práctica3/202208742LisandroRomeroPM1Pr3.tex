@@ -1,0 +1,104 @@
+\input{../../../plantilla.tex}
+
+\encabezados[Programación Matemática 1]{Hugo García}
+\titulos[Práctica 2]{Programación Matemática 1}
+
+\begin{document}
+	
+	\thispagestyle{encabezado}
+	\pagestyle{general}
+	\onehalfspacing
+	
+	\begin{center}
+		\Huge{\underline{\textbf{Práctica 3}}}
+	\end{center}
+	
+	\section{Ideas}
+	
+	Ya que necesitamos crear un tablero en donde jugar y que este guarde las posiciones y que estas sean editables en cada turno, es una buena idea que las posiciones se guarden como una lista de listas, y que el tablero utilice el formateo para colocar cada miembro de la lista de listas en sus posiciones correspondientes.
+	
+	Además necesitamos cierta cantidad de acciones que podamos realizar en el tablero:
+	\begin{enumerate}
+		\item Cambiar el caracter que una posición tiene.
+		
+		\item Verificar que posiciones están libres.
+		
+		\item Realizar jugadas en el tablero.
+		
+		\item Definir si hay un jugador.
+	\end{enumerate}
+	
+	En la misma vía, también necesitamos definir a los jugadores, necesitando de estos el nombre que tendrán y el caracter que utilizarán. Así como necesitamos una forma de iniciar el proceso para llevar a cabo un juego.
+	
+	Por todo esto, se vuelve una opción mucho más clara la utilización del enfoque orientado a objetos de Python, para que de esta manera sea mucho más simple la interacción en juego.
+	
+	\section{Código}
+	
+	\paragraph{Tablero}
+	
+	El tablero, lo enunciamos de las líneas 11 a la 116. En esto definimos las siguientes funciones para la clase \texttt{Tablero()}:
+	
+	\begin{enumerate}
+		\item \texttt{\_\_init\_\_(self, nombre)}; en donde creamos los atributos para la clase tablero:
+		\begin{itemize}
+			\item nombre.
+			\item tablero, el cual crea el tablero de juego.
+			\item posiciones, donde se guardan los elementos en cada punto del tablero.
+		\end{itemize}
+		
+		\item \texttt{imprimirTablero(self)}; en donde imprimimos el tablero asignando las posiciones a sus valores correspondientes en el tablero.
+		
+		\item \texttt{setPosicion(self, fila, columna, caracter)}; en donde verificamos si la posición del tablero está vacía y si lo está cambiamos la posición por el caracter proporcionado, si no lo está le pedimos al jugador que elija una posición vacía.
+		
+		\item \texttt{setPosicionCPU(self, fila, columna, caracter)}; en donde verificamos si la posición del tablero está vacía y si lo está cambiamos el valor de la posición por el caracter proporcionado, si no lo está, la máquina elige otra posición que esté vacía.
+		
+		\item \texttt{getPosiciones(self)}; obtiene las posiciones.
+		
+		\item \texttt{posicionesLibres(self)}; obtiene una lista que tiene como elementos listas de coordenadas fila-columna, cada lista dentro de la lista retornada es una posición donde es válido jugar.
+		
+		\item \texttt{posicionesJugador1(self), posicionesJugador2(self)}; devuelve la lista de las posiciones ocupadas por cada jugador.
+		
+		\item \texttt{jugada(self, jugador)}; realiza una jugada en el tablero pidiendo una posición en la que jugar inicialmente y remitiendo los valores de entrada hacia la función para settear la posición.
+		
+		\item \texttt{jugadaRandom(self, jugador)}; pide la lista de listas de posiciones libres, de esa lista elige una de las listas para jugar en esa posición, para luego remitir los valores a la función de setteo de posiciones. 
+		
+		\item \texttt{jugadaOptima(self, jugador)}; función inconclusa que pretendía dar jugadas no perdedoras.
+		
+		\item \texttt{ganador(self)}; verifica si en las filas, columnas o diagonales hay 3 caracteres iguales, si los hay aumenta en uno el contador de victoria  y cambia el caracter \texttt{M} como el caracter que está en esas tres posiciones encontradas, devuelve la lista \texttt{[victoria, M]}.
+		
+	\end{enumerate}
+	
+	\paragraph{Jugador} Creamos con esto a los jugadors, mediante la clase \texttt{Jugador()}:
+	
+	\begin{enumerate}
+		\item \texttt{\_\_init\_\_(self, nombre)}; en donde creamos los atributos para la clase jugador:
+		\begin{itemize}
+			\item nombre.
+			
+			\item caracter que utiliza el jugador.
+		\end{itemize}
+		
+		\item \texttt{getCaracter(self)}; devuelve el caracter del jugador.
+		
+		\item \texttt{getNombre(self)}; devuelve el nombre del jugador.
+	\end{enumerate}
+	
+	\paragraph{juego1v1}
+	
+	Creamos una función que crea un contador interno para la victoria y un guardado de caracter que se utiliza para validad cuál de los jugadores ganó y cuál perdió. Luego imprime el tablero e inicia un for de 4 ciclos en el cada ciclo juega el primer jugador y a partir del segundo ciclo se verifica se verifica si hay un ganador en cuyo caso de haberlo se asignan los valores del caracter y el contador de victoria, esto se hace de la misma manera para el segundo jugador dentro del mismos ciclo for.
+	
+	Luego del for se verifica mediante el contador si hay alguien que haya ganado, si no se sigue pidiendole al jugador uno que ocupe la última casilla; y luego se verifica si alguien ganó en cuyo caso se valúa cuál de los jugadores ganó y se expresa, en caso no haya ganado nadie, se imprime un \textit{empate}.
+	
+	\paragraph{juego1vCPU} Creamos la función \texttt{juego1vCPU(jugador1, jugador2, tablero, opcion)} El algoritmo de juego funciona exactamente igual que en el caso anterior, con la diferencia que la máquina usa las opciones de jugada definidas como óptimas o random.
+	
+	La opción que se pide en esta función sirve para diferenciar si el juego es de llenado aleatorio o con una estrategia ganadora.
+	
+	\paragraph{Desarrollo}
+	
+	Definimos primero el tablero llamándolo \textit{A}, luego preguntamos cuantos jugadores juegan, si hay 1 solo jugador, se pregunta el nombre del jugador 1 con el caracter 'X'; y se crea el jugador computadora (CPU) con el caracter 'O'. Por último se usa la función con las opciones \texttt{juego1vCPU(jugador1, jugador2, tablero, 2)}
+	
+	Si se tienen 2 jugadores, se preguntan los nombres y se crean dos jugadores con los nombres proporcionados, dandoles el orden de juego según el orden en que introducen el nombre. Por último se usa la función con las opciones \texttt{juego1v1(jugador1, jugador2, tablero)} para inicializar el juego.
+	
+	El código se encuentra en el siguiente enlace: \href{https://github.com/LisandroRomero2023/progra1ecfm/blob/630e5ebf0edde4ac5c7f573e0d6dd16cb3cf615f/Pr%C3%A1ctica2/C%C3%B3digo/totitoPOO.py#L3}{código del juego.}
+	
+\end{document}
