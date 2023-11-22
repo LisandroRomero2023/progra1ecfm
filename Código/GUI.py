@@ -310,7 +310,7 @@ class Handler():
         codigo.set_program_name("Código fuente")
         codigo.set_comments("A continuación encuentra el link al código fuente:")
         codigo.set_website_label("Enlace al código fuente")
-        codigo.set_website("https://github.com/LisandroRomero2023/progra1ecfm/blob/94bd46a10cc1f5a5ed8be82bb730226f64e5437a/Práctica3/Código/totitoGUI.py")
+        codigo.set_website("https://github.com/LisandroRomero2023/progra1ecfm/tree/3ace1d80547bb4bfd4d46e37c15ff6eb4cca3745/C%C3%B3digo")
         
         codigo.run()
         codigo.destroy()
